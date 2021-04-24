@@ -1,0 +1,109 @@
+﻿@page
+@model IndexModel
+
+@{
+	ViewData["Title"] = "Home page";
+}
+
+
+
+<div class="row justify-content-center">
+	<div class="col-md-4" style="text-align:center">
+
+		@{
+			if (@Model.Person.CurrentDebtBalance > 0)
+			{
+				<span style="		color: red;
+		font-size: 72px;
+		text-align: center">
+					@Convert.ToInt32(Model.Person.CurrentDebtBalance)
+				</span>
+			}
+			else if (@Model.Person.CurrentDebtBalance < 0)
+			{
+				<span style="color:green; font-size:72px">
+					@Model.Person.CurrentDebtBalance
+				</span>
+			}
+			else
+			{
+				<span style="font-size:40px">BIG FAT ZERO</span>
+			}
+		}
+	</div>
+</div>
+
+<div class="row justify-content-center">
+	<div class="col-md-4">
+
+		<form method="post">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="Transaction.Amount" class="control-label"></label>
+				<input asp-for="Transaction.Amount" class="form-control" style="height:100px" />
+				<span asp-validation-for="Transaction.Amount" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Transaction.Expense.Name" class="control-label"></label>
+				<input asp-for="Transaction.Expense.Name" class="form-control" style="height:100px" />
+				<span asp-validation-for="Transaction.Expense.Name" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Transaction.Expense.IsShared" class="control-label"></label>
+				<input asp-for="Transaction.Expense.IsShared" class="form-control" />
+				<span asp-validation-for="Transaction.Expense.IsShared" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Create" class="btn btn-primary" />
+			</div>
+		</form>
+		<div>
+			<a asp-page="/Transactions/index">All transactions</a>
+		</div>
+	</div>
+</div>
+
+
+
+@*<style>
+	/* HIDE RADIO */
+	[type=radio] {
+		position: absolute;
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+		/* IMAGE STYLES */
+		[type=radio] + img {
+			cursor: pointer;
+			filter: grayscale(100%);
+			object-fit: cover;
+			width: 50px;
+		}
+
+		/* CHECKED STYLES */
+		[type=radio]:checked + img {
+			filter: grayscale(0%);
+		}
+</style>
+
+<div class="row justify-content-center">
+	<div class="col-sm-6" style="align-content:center">
+		<label>
+			<input type="radio" name="test" value="small">
+			<img class="img-responsive" src="~/img/shared.png">
+		</label>
+	</div>
+	<div class="col-sm-6">
+
+		<label>
+			<input type="radio" name="test" value="small">
+			<img class="img-responsive" src="~/img/shared.png">
+		</label>
+	</div>
+</div>*@
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
